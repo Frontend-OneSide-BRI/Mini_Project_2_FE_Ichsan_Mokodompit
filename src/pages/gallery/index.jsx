@@ -102,10 +102,8 @@ const Gallery = () => {
 			{/* Main component start */}
 			<main className="tw-w-screen tw-my-8">
 				<section className="tw-flex tw-justify-center tw-items-center tw-flex-wrap">
-					{isError === true ? (
-						<h2 className="tw-font-bold tw-text-5xl">
-							Sorry, <span>{data.data}</span>
-						</h2>
+					{isError === true || data.data.total === 0 ? (
+						<h2 className="tw-font-bold tw-text-5xl">Sorry, data not found</h2>
 					) : (
 						<ImagesGallery
 							data={search ? data.data.results : data.data}
