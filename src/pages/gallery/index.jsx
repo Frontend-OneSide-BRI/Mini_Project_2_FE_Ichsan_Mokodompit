@@ -18,6 +18,9 @@ const Gallery = () => {
 	const [isError, setIsError] = useState(false);
 	const [page, setPage] = useState(1);
 	const [imageLoading, setImageLoading] = useState(false);
+	const backTotop = () => {
+		window.scrollTo(0, 0);
+	};
 
 	useEffect(() => {
 		if (search) {
@@ -131,6 +134,21 @@ const Gallery = () => {
 					</div>
 				) : (
 					<></>
+				)}
+
+				{search || isError === true ? (
+					<></>
+				) : (
+					<div className="tw-flex tw-justify-center tw-items-center tw-w-full">
+						<Buttons
+							type={"button"}
+							className={
+								"tw-w-full md:tw-w-4/6 lg:tw-w-2/6 tw-h-16 tw-bg-slate-400 tw-items-center tw-m-3 tw-rounded-md tw-text-xl tw-font-extrabold tw-text-white tw-shadow-lg hover:tw-bg-slate-600 tw-transition-all"
+							}
+							text={"Wants To See More? Go Search It!!!"}
+							onClick={backTotop}
+						/>
+					</div>
 				)}
 			</main>
 			{/* Main component end */}
