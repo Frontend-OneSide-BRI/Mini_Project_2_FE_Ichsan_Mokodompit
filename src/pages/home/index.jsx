@@ -30,6 +30,8 @@ const Home = () => {
 				setIsLoading(false);
 			})
 			.catch((error) => {
+				setIsLoading(false);
+				setData(error.response);
 				console.log(error);
 			});
 	};
@@ -54,11 +56,17 @@ const Home = () => {
 				<HeroSection />
 			</section>
 			<section className="tw-w-screen tw-my-8">
-				<div className="tw-text-center tw-my-5">
+				<div className="tw-text-center tw-my-10">
 					<h1 className="tw-font-bold tw-text-5xl">IMAGES FOR YOU</h1>
 				</div>
 				<main className="tw-flex tw-justify-center tw-items-center tw-flex-wrap">
-					<ImagesGallery data={data} loading={isLoading} />
+					{data.status !== 200 ? (
+						<h2 className="tw-font-bold tw-text-5xl">
+							Sorry, <span>{data.data}</span>
+						</h2>
+					) : (
+						<ImagesGallery data={data} loading={isLoading} />
+					)}
 				</main>
 				<div className="tw-flex tw-justify-center tw-items-center tw-w-full">
 					<Buttons
