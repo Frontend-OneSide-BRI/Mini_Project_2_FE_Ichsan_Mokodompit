@@ -1,5 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Navbar, ImagesGallery, Buttons, Loading } from "../../components";
+import {
+	Navbar,
+	ImagesGallery,
+	Buttons,
+	Loading,
+	HeroSection,
+} from "../../components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -28,6 +34,8 @@ const Home = () => {
 			});
 	};
 
+	console.log(data);
+
 	if (isLoading === true) {
 		return (
 			<Fragment>
@@ -41,12 +49,16 @@ const Home = () => {
 			<header>
 				<Navbar />
 			</header>
+
+			<section className="tw-w-screen">
+				<HeroSection />
+			</section>
 			<section className="tw-w-screen tw-my-8">
 				<div className="tw-text-center tw-my-5">
-					<h1 className="tw-font-bold tw-text-5xl">GALLERY</h1>
+					<h1 className="tw-font-bold tw-text-5xl">IMAGES FOR YOU</h1>
 				</div>
 				<main className="tw-flex tw-justify-center tw-items-center tw-flex-wrap">
-					<ImagesGallery data={data} />
+					<ImagesGallery data={data} loading={isLoading} />
 				</main>
 				<div className="tw-flex tw-justify-center tw-items-center tw-w-full">
 					<Buttons

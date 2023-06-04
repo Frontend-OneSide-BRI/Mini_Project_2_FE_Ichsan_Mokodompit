@@ -65,6 +65,7 @@ const ImagesGallery = ({ data }) => {
 					alt=""
 					className={`${style.images} tw-rounded-lg`}
 				/>
+
 				<CloseIcon className={style.clsIcon} onClick={closeImage} />
 
 				<ArrowForwardIosIcon
