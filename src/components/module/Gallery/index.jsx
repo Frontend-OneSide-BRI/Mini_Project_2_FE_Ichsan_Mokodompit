@@ -53,28 +53,28 @@ const ImagesGallery = ({ data }) => {
 		<Fragment>
 			<div
 				className={model ? `${style.model} ${style.open}` : `${style.model}`}>
-				{imgIndex === 0 ? (
-					<></>
-				) : (
-					<ArrowBackIosNewIcon
-						className={style.prevIcon}
-						onClick={() => prevImage(data[imgIndex - 1].urls.regular)}
-					/>
-				)}
+				<ArrowBackIosNewIcon
+					className={
+						imgIndex === 0 ? `${style.prevIcon} tw-hidden` : `${style.prevIcon}`
+					}
+					onClick={() => prevImage(data[imgIndex - 1].urls.regular)}
+				/>
+
 				<img
 					src={tempImgSrc}
 					alt=""
 					className={`${style.images} tw-rounded-lg`}
 				/>
 				<CloseIcon className={style.clsIcon} onClick={closeImage} />
-				{imgIndex === data.length - 1 ? (
-					<></>
-				) : (
-					<ArrowForwardIosIcon
-						className={style.nextIcon}
-						onClick={() => nextImage(data[imgIndex + 1].urls.regular)}
-					/>
-				)}
+
+				<ArrowForwardIosIcon
+					className={
+						imgIndex === data.length - 1
+							? `${style.nextIcon} tw-hidden`
+							: `${style.nextIcon}`
+					}
+					onClick={() => nextImage(data[imgIndex + 1].urls.regular)}
+				/>
 			</div>
 			{mapping()}
 		</Fragment>
