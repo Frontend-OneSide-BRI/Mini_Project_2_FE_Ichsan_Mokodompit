@@ -13,6 +13,7 @@ const Home = () => {
 	const [data, setData] = useState();
 	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = useState(true);
+	const [isError, setIsError] = useState(false);
 
 	useEffect(() => {
 		getData();
@@ -26,17 +27,16 @@ const Home = () => {
 				},
 			})
 			.then((response) => {
-				setData(response.data);
+				setData(response);
 				setIsLoading(false);
+				setIsError(false);
 			})
 			.catch((error) => {
 				setIsLoading(false);
+				setIsError(true);
 				setData(error.response);
-				console.log(error);
 			});
 	};
-
-	console.log(data);
 
 	if (isLoading === true) {
 		return (
@@ -48,26 +48,36 @@ const Home = () => {
 
 	return (
 		<Fragment>
+			{/* Navbar Start */}
 			<header>
 				<Navbar />
 			</header>
+			{/* Navbar End */}
 
+			{/* Hero Start */}
 			<section className="tw-w-screen">
-				<HeroSection />
+				<HeroSection heading={"WELCOME TO IMAGE GALLERY"} />
 			</section>
-			<section className="tw-w-screen tw-my-8">
+			{/* Hero End */}
+
+			{/* Main Component Start */}
+			<main className="tw-w-screen tw-my-8">
 				<div className="tw-text-center tw-my-10">
 					<h1 className="tw-font-bold tw-text-5xl">IMAGES FOR YOU</h1>
 				</div>
-				<main className="tw-flex tw-justify-center tw-items-center tw-flex-wrap">
-					{data.status !== 200 ? (
+
+				{/* Show Image Gallery */}
+				<section className="tw-flex tw-justify-center tw-items-center tw-flex-wrap">
+					{isError === true ? (
 						<h2 className="tw-font-bold tw-text-5xl">
 							Sorry, <span>{data.data}</span>
 						</h2>
 					) : (
-						<ImagesGallery data={data} loading={isLoading} />
+						<ImagesGallery data={data.data} />
 					)}
-				</main>
+				</section>
+				{/* Show Image Gallery End */}
+
 				<div className="tw-flex tw-justify-center tw-items-center tw-w-full">
 					<Buttons
 						type={"button"}
@@ -78,7 +88,8 @@ const Home = () => {
 						onClick={() => navigate("/gallery")}
 					/>
 				</div>
-			</section>
+			</main>
+			{/* Main Component End */}
 		</Fragment>
 	);
 };

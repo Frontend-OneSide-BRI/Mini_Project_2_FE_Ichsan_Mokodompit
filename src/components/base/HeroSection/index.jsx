@@ -10,13 +10,13 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import nature from "../../../assets/images/nature.jpg";
 
-const HeroSection = () => {
+const HeroSection = ({ heading }) => {
 	const [query, setQuery] = useState();
 	const navigate = useNavigate();
 
 	const handleSearch = (e) => {
 		e.preventDefault();
-		return navigate(`/gallery?query=${query}`);
+		return navigate(`/gallery?query=${query}&page=1&per_page=30`);
 	};
 
 	return (
@@ -31,7 +31,7 @@ const HeroSection = () => {
 							<div className="md:tw-w-3/4 tw-w-full tw-relative tw-top-[50%] tw-left-[50%] tw-translate-x-[-50%] tw-translate-y-[-50%]">
 								<div className="tw-text-center tw-text-white tw-mb-5">
 									<h1 className="tw-font-extrabold tw-text-2xl sm:tw-text-3xl md:tw-text-4xl lg:tw-text-5xl tw-mb-3">
-										WELCOME TO PHOTO GALLERY
+										{heading}
 									</h1>
 									<p>Search all images you like down here</p>
 								</div>
