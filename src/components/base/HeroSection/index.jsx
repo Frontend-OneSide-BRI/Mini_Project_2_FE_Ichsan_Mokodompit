@@ -7,16 +7,35 @@ import {
 	InputLabel,
 	OutlinedInput,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import nature from "../../../assets/images/nature.jpg";
+import axios from "axios";
 
 const HeroSection = ({ heading }) => {
 	const [query, setQuery] = useState();
 	const navigate = useNavigate();
 
+	const getData = () => {
+		axios
+			.get(
+				`${process.env.REACT_APP_IMAGE_API}/search/photos?query=${query}&page=1&per_page=30`,
+				{
+					headers: {
+						Authorization: `Client-ID ${process.env.REACT_APP_UNSPLASH_ACCESS_KEY}`,
+					},
+				}
+			)
+			.then((response) => {
+				navigate(`/gallery?query=${query}`);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
 	const handleSearch = (e) => {
 		e.preventDefault();
-		return navigate(`/gallery?query=${query}&page=1&per_page=30`);
+		getData();
 	};
 
 	return (
@@ -57,20 +76,6 @@ const HeroSection = ({ heading }) => {
 										label="Search Image"
 									/>
 								</FormControl>
-								<div className="tw-text-center tw-text-white tw-my-5">
-									<p className="tw-text-xl">
-										Popular Search:{" "}
-										<span>
-											<Link to={"/gallery?query=cat"}>Cat</Link>,
-										</span>
-										<span>
-											<Link to={"/gallery?query=nature"}> Nature</Link>,
-										</span>
-										<span>
-											<Link to={"/gallery?query=car"}> Cars</Link>,
-										</span>
-									</p>
-								</div>
 							</div>
 						</div>
 					</div>

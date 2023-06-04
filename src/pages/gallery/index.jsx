@@ -11,11 +11,14 @@ const Gallery = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
 	const [page, setPage] = useState(1);
+	const [imageLoading, setImageLoading] = useState(false);
 
 	useEffect(() => {
 		if (search) {
+			setIsLoading(true);
 			getSearchData();
 		} else {
+			setIsLoading(true);
 			getAllImage();
 		}
 	}, [search]);
@@ -52,8 +55,10 @@ const Gallery = () => {
 				console.log(response);
 				setData(response);
 				setIsLoading(false);
+				setImageLoading(false);
 			})
 			.catch((error) => {
+				setImageLoading(false);
 				setData(error.response);
 				setIsLoading(false);
 				setIsError(true);
@@ -63,6 +68,7 @@ const Gallery = () => {
 	const handlePage = (event, value) => {
 		setPage(value);
 		getSearchData(value);
+		setImageLoading(true);
 	};
 
 	if (isLoading === true) {
@@ -101,17 +107,27 @@ const Gallery = () => {
 							Sorry, <span>{data.data}</span>
 						</h2>
 					) : (
-						<ImagesGallery data={search ? data.data.results : data.data} />
+						<ImagesGallery
+							data={search ? data.data.results : data.data}
+							loading={imageLoading}
+						/>
 					)}
 				</section>
-				<Stack spacing={2}>
-					<Pagination
-						count={data.data.total_pages}
-						page={page}
-						boundaryCount={2}
-						onChange={handlePage}
-					/>
-				</Stack>
+				{search ? (
+					<div className="tw-relative tw-w-full tw-flex tw-my-10 tw-justify-center tw-items-center">
+						<Stack spacing={2}>
+							<Pagination
+								count={data.data.total_pages}
+								size="large"
+								page={page}
+								boundaryCount={2}
+								onChange={handlePage}
+							/>
+						</Stack>
+					</div>
+				) : (
+					<></>
+				)}
 			</main>
 			{/* Main component end */}
 		</Fragment>
