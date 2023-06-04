@@ -1,7 +1,13 @@
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { HeroSection, ImagesGallery, Loading, Navbar } from "../../components";
+import {
+	Buttons,
+	HeroSection,
+	ImagesGallery,
+	Loading,
+	Navbar,
+} from "../../components";
 import { Pagination, Stack } from "@mui/material";
 
 const Gallery = () => {
@@ -17,6 +23,7 @@ const Gallery = () => {
 		if (search) {
 			setIsLoading(true);
 			getSearchData();
+			setPage(1);
 		} else {
 			setIsLoading(true);
 			getAllImage();
@@ -52,7 +59,6 @@ const Gallery = () => {
 				}
 			)
 			.then((response) => {
-				console.log(response);
 				setData(response);
 				setIsLoading(false);
 				setImageLoading(false);
